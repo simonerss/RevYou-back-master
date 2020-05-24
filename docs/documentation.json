@@ -1,0 +1,142 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "RevYou back-end documentation",
+    "version": "1.0.0",
+    "title": "RevYou"
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/researcher": {
+      "post": {
+        "summary": "Create Researcher",
+        "operationId": "createResearcher",
+        "description": "Create a Researcher",
+        "tags": [
+          "Researcher"
+        ],
+        "responses": {
+          "201": {
+            "description": "researcher successfully registered"
+          },
+          "401": {
+            "description": "E-mail already registered"
+          },
+          "500": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/researcher/:email": {
+      "get": {
+        "summary": "Find Researcher",
+        "operationId": "getResearcher",
+        "description": "Returns the researcher associated with the e-mail address passed as argumentd",
+        "tags": [
+          "Researcher"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "specific researcher email"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Returns a specific researcher",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Researcher"
+              }
+            }
+          },
+          "404": {
+            "description": "Researcher does not exist"
+          },
+          "500": {
+            "description": "error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Researcher",
+        "operationId": "updateResearcher",
+        "description": "Update the researcher associated with the e-mail address passed as argumentd",
+        "tags": [
+          "Researcher"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "specific researcher email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated successfully"
+          },
+          "400": {
+            "description": "error"
+          },
+          "404": {
+            "description": "Researcher does not exist"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Researcher",
+        "operationId": "deleteResearcher",
+        "description": "Delete the researcher associated with the e-mail address passed as argumentd",
+        "tags": [
+          "Researcher"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "specific researcher email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted successfully"
+          },
+          "404": {
+            "description": "Researcher does not exist"
+          },
+          "500": {
+            "description": "error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Researcher": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
