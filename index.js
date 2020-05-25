@@ -31,7 +31,6 @@ const selectionStepRouter = require("./src/selectionStep/selectionStepRouter");
 const studyAssignedRouter = require("./src/studyAssigned/studyAssignedRouter");
 const formRouter = require("./src/form/formRouter");
 
-
 const app = express();
 
 app.use(cors());
