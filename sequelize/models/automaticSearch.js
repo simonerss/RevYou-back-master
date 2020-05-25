@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
+    
     const AutomaticSearch = sequelize.define('AutomaticSearch', {
         id: { type: DataTypes.STRING(50), primaryKey: true },
         method: DataTypes.ENUM('Snowballing', 'Machine Learning'),

@@ -10,16 +10,16 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
-      // SelectionResultId: {
-      //   type: Sequelize.UUID,
-      //   allowNull: false,
-      //   references: {
-      //     model: 'SelectionResult',
-      //     key: 'id'
-      //   },
-      //   onUpdate: 'CASCADE',
-      //   onDelete: 'CASCADE',
-      // },
+      SelectionResultId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'SelectionResult',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       SelectionCriteriaId: {
         type: Sequelize.UUID,
         allowNull: false,
