@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         through: 'SelectionResultSelectionCriteria',
         onDelete: "cascade"
       });
+
     }
 
     return SelectionCriteria;
