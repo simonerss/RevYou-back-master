@@ -167,23 +167,31 @@ module.exports = {
     async getStudiesInConflict(req, res) {
         //CONFLITOS NA ETAPA DE SELEÇÃO
         // const { ProjectId } = req.body;
+        // const strquery = 'SELECT ' +
+        //     '"Study"."id", "Study"."title", "Study"."authors", "Study"."citekey", "Study"."abstract", ' +
+        //     '"Study"."keywords", "Study"."venue", "Study"."year", "Study"."pages", "Study"."volume", ' +
+        //     '"Study"."url", "Study"."issn", "Study"."doi", "Study"."base", "Study"."search", ' +
+        //     '"Study"."generalStatus", "Study"."venueType", "Study"."createdAt", "Study"."updatedAt", ' +
+        //     '"SelectionResult"."id" as "sr_id", "SelectionResult"."status" as "sr_status", ' +
+        //     '"SelectionResult"."createdAt" as "sr_createdat", "SelectionResult"."updatedAt"as "sr_updatedat", ' +
+        //     '"SelectionStep"."id" as "ss_id", "SelectionStep"."startDate", "SelectionStep"."endDate", ' +
+        //     '"SelectionStep"."dateChecker", "SelectionStep"."dateConflicts", "SelectionStep"."method", ' +
+        //     '"SelectionStep"."status" as "ss_status", "SelectionStep"."ratedContent", "SelectionStep"."numCheckerStudy", ' +
+        //     '"SelectionStep"."scoreBoard", "SelectionStep"."createdAt" as "ss_createdat", ' +
+        //     '"SelectionStep"."updatedAt"as "ss_updatedat" ' +
+        //     ' FROM "Study" INNER JOIN ( "SelectionResult" INNER JOIN ' +
+        //     '"SelectionStep" ON "SelectionStep"."id" = "SelectionResult"."SelectionStepId" ) ' +
+        //     'ON ( ("Study"."ProjectId" = :projectid) AND ("SelectionResult"."status" = :inconflict) );';
         const ProjectId = req.params.projectid;
         const inconflict = 'in_conflict';
-        const strquery = 'SELECT ' +
-            '"Study"."id", "Study"."title", "Study"."authors", "Study"."citekey", "Study"."abstract", ' +
-            '"Study"."keywords", "Study"."venue", "Study"."year", "Study"."pages", "Study"."volume", ' +
-            '"Study"."url", "Study"."issn", "Study"."doi", "Study"."base", "Study"."search", ' +
-            '"Study"."generalStatus", "Study"."venueType", "Study"."createdAt", "Study"."updatedAt", ' +
-            '"SelectionResult"."id" as "sr_id", "SelectionResult"."status" as "sr_status", ' +
-            '"SelectionResult"."createdAt" as "sr_createdat", "SelectionResult"."updatedAt"as "sr_updatedat", ' +
-            '"SelectionStep"."id" as "ss_id", "SelectionStep"."startDate", "SelectionStep"."endDate", ' +
-            '"SelectionStep"."dateChecker", "SelectionStep"."dateConflicts", "SelectionStep"."method", ' +
-            '"SelectionStep"."status" as "ss_status", "SelectionStep"."ratedContent", "SelectionStep"."numCheckerStudy", ' +
-            '"SelectionStep"."scoreBoard", "SelectionStep"."createdAt" as "ss_createdat", ' +
-            '"SelectionStep"."updatedAt"as "ss_updatedat" ' +
-            ' FROM "Study" INNER JOIN ( "SelectionResult" INNER JOIN ' +
-            '"SelectionStep" ON "SelectionStep"."id" = "SelectionResult"."SelectionStepId" ) ' +
-            'ON ( ("Study"."ProjectId" = :projectid) AND ("SelectionResult"."status" = :inconflict) );';
+        const strquery = 'SELECT DISTINCT '+
+            '"Study"."id", "Study"."title", "Study"."authors", "Study"."citekey", '+
+            '"Study"."abstract", "Study"."keywords", "Study"."venue", "Study"."year", '+
+            '"Study"."pages", "Study"."volume", "Study"."url", "Study"."issn", "Study"."doi", '+
+            '"Study"."base", "Study"."search", "Study"."generalStatus", "Study"."venueType", '+
+            '"Study"."createdAt", "Study"."updatedAt" '+
+            'FROM "Study" INNER JOIN "SelectionResult" ON ( ("Study"."ProjectId" = :projectid) '+
+            'AND ("SelectionResult"."status" = :inconflict) );';
         const studiesInConflict = await Study.sequelize.query(strquery, {
             type: QueryTypes.SELECT,
             replacements: { projectid: ProjectId, inconflict: inconflict },
