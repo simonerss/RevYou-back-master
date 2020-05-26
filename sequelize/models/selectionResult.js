@@ -16,9 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     models.SelectionResult.belongsTo(models.Study, {
       as: 'StudyOwner',
       onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: true
-      }
+      foreignKey: "StudyId"
     });
     
     models.SelectionResult.belongsTo(models.Researcher, {
