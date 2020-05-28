@@ -80,9 +80,9 @@ app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // app.listen(process.env.PORT || 5000, console.log("all ready"));
 
-var server = app.listen(process.env.PORT, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
   var port = server.address().port;
-  console.log("Express is working on port " + port);
+  console.log("Express is working on port" + port);
 });
 
 module.exports = app;
