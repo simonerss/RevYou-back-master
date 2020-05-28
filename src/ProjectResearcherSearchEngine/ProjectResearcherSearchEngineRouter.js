@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const ProjectResearcherSearchEngineController = require('./ProjectResearcherSearchEngineController');
 
-const ProjectResearchSearchEngineRouter = () => {
+const projectResearchSearchEngineRouter = () => {
     router.route('/')
     .post(ProjectResearcherSearchEngineController.createProjectResearcherSearchEngine)
     .delete(ProjectResearcherSearchEngineController.deleteProjectResearcherSearchEngine);
@@ -14,4 +14,4 @@ const ProjectResearchSearchEngineRouter = () => {
 }
 
 
-module.exports = ProjectResearchSearchEngineRouter;
+module.exports = projectResearchSearchEngineRouter;
