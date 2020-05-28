@@ -1,6 +1,11 @@
 const { SearchEngine, Project } = require('../../sequelize/models/index');
 const uuid = require("uuid/v4");
 
+
+const extra = async (req, res) => {
+    return res.status(500).json({ message: 'tudo ok'});
+}
+
 const newSearchEngine = async (req, res) => {
     try {
         const { name } = req.body;
