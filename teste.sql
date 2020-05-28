@@ -108,5 +108,6 @@ ON "ProjectsResearchers"."ProjectId" = "Project"."id";
 "bugs": {
   "url": "https://github.com/DCOMP-UFS/RevYou-back/issues"
 },
-"homepage": "https://github.com/DCOMP-UFS/RevYou-back#readme", 
+"homepage": "https://github.com/DCOMP-UFS/RevYou-back#readme",  
+"test": "echo \"Error: no test specified\" && exit 0"
 */
