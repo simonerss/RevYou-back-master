@@ -90,6 +90,7 @@ const deleteProjectSearchEngines = async (req, res) => {
 }
 
 module.exports = {
+    extra,
     newSearchEngine,
     createSearchEngine,
     createProjectsSearchEngines,
