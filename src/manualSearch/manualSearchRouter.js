@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const manualSearchController = require('./manualSearchController');
 
-const ManualSearchController = () => {
+const ManualSearchRouter = () => {
 
     router.route('/')
     .get(manualSearchController.show)
@@ -12,4 +12,4 @@ const ManualSearchController = () => {
 }
 
 
-module.exports = ManualSearchController;
+module.exports = ManualSearchRouter;
