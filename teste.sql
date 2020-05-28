@@ -96,3 +96,17 @@ SELECT * FROM
 (("ProjectsResearchers"."ResearcherId" = "Researcher"."id") AND 
 ("Researcher"."email" = 'ris.simone@gmail.com'))
 ON "ProjectsResearchers"."ProjectId" = "Project"."id";
+
+
+/*
+"repository": {
+  "type": "git",
+  "url": "git+https://github.com/DCOMP-UFS/RevYou-back.git"
+},
+"author": "",
+"license": "ISC",
+"bugs": {
+  "url": "https://github.com/DCOMP-UFS/RevYou-back/issues"
+},
+"homepage": "https://github.com/DCOMP-UFS/RevYou-back#readme", 
+*/
