@@ -47,15 +47,13 @@ module.exports = {
     },
 
     async filters(req, res) {
-        //filtros:
         const { ProjectId, title, searchEngine, generalStatus, year, searchMode, adaptedQuery } = req.body;
         const studies = await Study.findAll({
             attributes: ['id', 'title', 'authors', 'citekey', 'abstract', 'keywords', 'venue', 'year',
                 'pages', 'volume', 'url', 'issn', 'doi', 'base', 'search', 'generalStatus', 'venueType'],
             where: {
                 ProjectId: ProjectId,
-                base: searchEngine, //suponho que seja o nome da base onde foi encontrado
-                //search: search, //suponho que o campo armazene o método de busca utilizado (automática, manual, snowballing, etc)
+                base: searchEngine, //nome da base onde foi encontrado
                 title: { [Op.iLike]: `%${title}%` },
                 generalStatus: generalStatus, //defauts:'Unclassified', 'Duplicated', 'Included', 'Excluded' 
                 year: year,
@@ -164,24 +162,7 @@ module.exports = {
         return res.status(200).json({ StudyByYearAmount });
     },
 
-    async getStudiesInConflict(req, res) {
-        //CONFLITOS NA ETAPA DE SELEÇÃO
-        // const { ProjectId } = req.body;
-        // const strquery = 'SELECT ' +
-        //     '"Study"."id", "Study"."title", "Study"."authors", "Study"."citekey", "Study"."abstract", ' +
-        //     '"Study"."keywords", "Study"."venue", "Study"."year", "Study"."pages", "Study"."volume", ' +
-        //     '"Study"."url", "Study"."issn", "Study"."doi", "Study"."base", "Study"."search", ' +
-        //     '"Study"."generalStatus", "Study"."venueType", "Study"."createdAt", "Study"."updatedAt", ' +
-        //     '"SelectionResult"."id" as "sr_id", "SelectionResult"."status" as "sr_status", ' +
-        //     '"SelectionResult"."createdAt" as "sr_createdat", "SelectionResult"."updatedAt"as "sr_updatedat", ' +
-        //     '"SelectionStep"."id" as "ss_id", "SelectionStep"."startDate", "SelectionStep"."endDate", ' +
-        //     '"SelectionStep"."dateChecker", "SelectionStep"."dateConflicts", "SelectionStep"."method", ' +
-        //     '"SelectionStep"."status" as "ss_status", "SelectionStep"."ratedContent", "SelectionStep"."numCheckerStudy", ' +
-        //     '"SelectionStep"."scoreBoard", "SelectionStep"."createdAt" as "ss_createdat", ' +
-        //     '"SelectionStep"."updatedAt"as "ss_updatedat" ' +
-        //     ' FROM "Study" INNER JOIN ( "SelectionResult" INNER JOIN ' +
-        //     '"SelectionStep" ON "SelectionStep"."id" = "SelectionResult"."SelectionStepId" ) ' +
-        //     'ON ( ("Study"."ProjectId" = :projectid) AND ("SelectionResult"."status" = :inconflict) );';
+    async getStudiesInConflict(req, res) {        
         const ProjectId = req.params.projectid;
         const inconflict = 'in_conflict';
         const strquery = 'SELECT DISTINCT '+
@@ -222,7 +203,5 @@ module.exports = {
         });
         return res.status(200).json(studiesInExtractionConflict);
     },
-
-    
 }
 

@@ -7,7 +7,6 @@ const { QueryTypes } = require('sequelize');
 module.exports = {
 
     async manualSearchAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const strquery = 'SELECT COUNT("Study"."id") AS Amount FROM "Study" INNER JOIN ' +
             '( "Search" INNER JOIN "ManualSearch" ON "Search"."id" = "ManualSearch"."SearchId" ) ' +
@@ -22,7 +21,6 @@ module.exports = {
     },
 
     async automaticSearchAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const strquery = 'SELECT COUNT("Study"."id") AS Amount FROM "Study"  JOIN ' +
             '( "Search" INNER JOIN "AutomaticSearch" ON "Search"."id" = "AutomaticSearch"."SearchId" ) ' +
@@ -37,7 +35,6 @@ module.exports = {
     },
 
     async automaticSearchMethodAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const strquery = 'SELECT "AutomaticSearch"."method", COUNT("AutomaticSearch"."method") AS amount FROM "Study" INNER JOIN ' +
             '( "Search" INNER JOIN "AutomaticSearch" ON "Search"."id" = "AutomaticSearch"."SearchId" ) ' +
@@ -52,7 +49,6 @@ module.exports = {
     },
 
     async StudyByadaptedQueryAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const strquery = 'SELECT "AdaptedQuery"."query" AS name, COUNT("AdaptedQuery"."query") AS value FROM ' +
             '"Study" INNER JOIN ( "Search" INNER JOIN ( "AutomaticSearch" INNER JOIN "AdaptedQuery" ' +
@@ -66,8 +62,6 @@ module.exports = {
         });
         return res.status(200).json({ StudyByadaptedQueryAmount });
     },
-
-
 
     async StudyBySearchEngineAmount(req, res) {
         const ProjectId = req.params.projectid;
@@ -85,7 +79,6 @@ module.exports = {
         return res.status(200).json({ StudyBySearchEngineAmount });
     },
 
-    //faz a contagem pelo campo 'busca' na tabela 'Study'
     async StudyBySearchEngineAmountt(req, res) {
         const ProjectId = req.params.projectid;
         const strquery = 'SELECT "Study"."base", COUNT("Study"."id") AS Amount '+
@@ -96,10 +89,9 @@ module.exports = {
             replacements: { projectid: ProjectId },
         });
         return res.status(200).json({ StudyBySearchEngineAmountt });
-    },//c83b9bdf-476b-4a07-be00-4602a6ebe6e0
+    },
 
     async rejectedByCriteriaAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const rejected = 'rejected';
         const strquery = 'SELECT "SelectionCriteria"."description", COUNT("SelectionResult"."status") AS Amount '+
@@ -113,6 +105,28 @@ module.exports = {
             replacements: { projectid: ProjectId, rejected: rejected },
         });
         return res.status(200).json({ rejectedByCriteriaAmount });
+    },
+
+    async studiesPublishYear(req, res) {
+        const ProjectId = req.params.projectid;
+        const strquery = 'SELECT DISTINCT "Study"."year" FROM "Study" '+
+        'WHERE "Study"."ProjectId" = :projectid;';
+        const studiesPublishYear = await Study.sequelize.query(strquery, {
+            type: QueryTypes.SELECT,
+            replacements: { projectid: ProjectId },
+        });
+        return res.status(200).json( studiesPublishYear );
+    },
+
+    async studiesSearchEngine(req, res) {
+        const ProjectId = req.params.projectid;
+        const strquery = 'SELECT DISTINCT "Study"."base" FROM "Study" '+
+        'WHERE "Study"."ProjectId" = :projectid;';
+        const studiesSearchEngine = await Study.sequelize.query(strquery, {
+            type: QueryTypes.SELECT,
+            replacements: { projectid: ProjectId },
+        });
+        return res.status(200).json( studiesSearchEngine );
     },
 
     async acceptedByYearAmount(req, res) {
@@ -129,7 +143,6 @@ module.exports = {
     },
 
     async acceptedBySearchEngineAmount(req, res) {
-        // const { ProjectId } = req.body;
         const ProjectId = req.params.projectid;
         const accepted = 'accepted';
         const strquery = 'SELECT "SearchEngine"."name", COUNT ("SelectionResult"."status") AS Amount FROM "SelectionResult" '+

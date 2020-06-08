@@ -4,7 +4,7 @@ const dataGraphicController = require('./dataGraphicController');
 const dataGraphicRouter = () => {
     
     router.route('/')
-    .get((req, res) => { return res.json({message: 'Data for Graphic Generation.'}); });
+    .get((req, res) => { return res.json({ message: 'Data for Graphic Generation.' }); });
 
     router.route('/identifiedByManualsearch/:projectid')
     .get(dataGraphicController.manualSearchAmount);
@@ -29,6 +29,12 @@ const dataGraphicRouter = () => {
     
     router.route('/acceptedByYear/:projectid')
     .get(dataGraphicController.acceptedByYearAmount);
+
+    router.route('/studiesPublishYear/:projectid')
+    .get(dataGraphicController.studiesPublishYear);
+    
+    router.route('/studiesSearchEngine/:projectid')
+    .get(dataGraphicController.studiesSearchEngine);
     
     router.route('/acceptedBySearchEngine/:projectid')
     .get(dataGraphicController.acceptedBySearchEngineAmount);
