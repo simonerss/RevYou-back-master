@@ -1,2 +1,2 @@
-web: node index.js
-web: npx sequelize db:migrate
+node index.js
+npx sequelize db:migrate
