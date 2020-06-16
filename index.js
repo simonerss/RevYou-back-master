@@ -5,6 +5,7 @@ const pg = require('pg');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 
+const projectsResearchersRouter = require('./src/projectsResearchers/ProjectsResearchersRouter');
 const dataGraphicRouter = require('./src/dataGraphic/dataGraphicRouter');
 const projectResearcherSearchEngineRouter = require('./src/projectResearcherSearchEngine/ProjectResearcherSearchEngineRouter');
 const manualSearchRouter = require('./src/manualSearch/manualSearchRouter');
@@ -48,6 +49,7 @@ app.options("/*", function (req, res, next) {
 });
 
 //routers
+app.use("/projectsResearchers", projectsResearchersRouter());
 app.use("/studyAssigned", studyAssignedRouter());
 app.use("/form", formRouter());
 app.use("/selection/step", selectionStepRouter());
@@ -73,7 +75,6 @@ app.use('/extraction/template', templateFormRouter());
 app.use('/extraction/step', extractionStepRouter());
 app.use('/extraction/form', extractionFormRouter());
 app.use('/extraction/distribution', extractionDistributionRouter());
-
 
 const swaggerDocument = require('./docs/documentation.json');
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

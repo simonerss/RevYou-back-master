@@ -34,7 +34,7 @@ module.exports = {
         attributes: ['id', 'keyword']
       }, {
         association: 'SelectionCriteria',
-        attributes: ['id', 'description']
+        attributes: ['id', 'description', 'type']
       }, {
         association: 'Study',
         attributes: ['id', 'title']
