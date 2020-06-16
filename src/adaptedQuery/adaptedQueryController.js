@@ -35,7 +35,7 @@ const createAdaptedQueryy = async (req, res) => {
     try {
         const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
-        AdaptedQuery.create({
+        const adaptedquery = AdaptedQuery.create({
             id: uuid(),
             query,
             adaptedDate,
@@ -43,8 +43,9 @@ const createAdaptedQueryy = async (req, res) => {
             search,
             ProjectId,
             SearchEngineId: result.dataValues.id
-    });
-    return res.status(201).send('adaptedQuery cadastrado com sucesso');
+        })
+        .then(() => res.status(201).send('adaptedQuery cadastrado com sucesso'));
+
     } catch (err) {
         return res.status(500).json({ message: 'error', err });
     }
@@ -74,13 +75,13 @@ const getAdaptedQuery = async (req, res) => {
             where: { ProjectId },
             attributes: ['id', 'query'],
             include: [
-                { 
-                    association: 'AutomaticSearch', 
+                {
+                    association: 'AutomaticSearch',
                     where: { id: search },
                     required: false
-                },{
+                }, {
                     association: 'SearchEngine',
-                    where: { name: base},
+                    where: { name: base },
                     required: false
                 }
             ]
