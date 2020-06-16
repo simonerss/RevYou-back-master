@@ -5,6 +5,7 @@ const pg = require('pg');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 
+const projectsSearchEnginesRouter = require('./src/projectsSearchEngines/ProjectsSearchEnginesRouter');
 const projectsLanguagesRouter = require('./src/projectsLanguages/ProjectsLanguagesRouter');
 const projectsResearchersRouter = require('./src/projectsResearchers/ProjectsResearchersRouter');
 const dataGraphicRouter = require('./src/dataGraphic/dataGraphicRouter');
@@ -48,6 +49,7 @@ app.options("/*", function (req, res, next) {
 });
 
 //routers
+app.use("/projectsSearchEngines", projectsSearchEnginesRouter());
 app.use("/projectsLanguages", projectsLanguagesRouter());
 app.use("/projectsResearchers", projectsResearchersRouter());
 app.use("/studyAssigned", studyAssignedRouter());

@@ -10,14 +10,14 @@ const newSearchEngine = async (req, res) => {
     try {
         const { name } = req.body;
 
-        const [base] = await SearchEngine.findOrCreate({
+        const base = await SearchEngine.findOrCreate({
             where: { name },
             defaults: {
                 id: uuid(),
-                name
+                name:name
             }
         });
-        return res.status(201).send('Search Engine cadastrada com sucesso', base);
+        return res.status(201).send('Search Engine cadastrada com sucesso');
     } catch (err) {
         return res.status(500).json({ message: 'error interno', err });
     }
@@ -47,10 +47,10 @@ const createProjectsSearchEngines = async (req, res) => {
         const project = await Project.findByPk(ProjectId, { atributes: ["id"] });
         const result = bases.map(async base => {
             const searchEngine = await SearchEngine.findOne({ where: { name: base }});
-            return await project.addSearchEngines(searchEngine);
+            return await project.addSearchEngines(searchEngine); //não executa
         })
         await Promise.all(result)
-        return res.status(201).send('Search Engine associada com o projeto com sucesso');
+        return res.status(201).send({ message: 'Search Engine associada com o projeto com sucesso', result});
     } catch (err) {
         return res.status(500).json({ message: 'error interno', err });
     }
