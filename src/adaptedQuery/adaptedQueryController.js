@@ -5,8 +5,7 @@ const createAdaptedQuery = async (req, res) => {
     try {
         const { ProjectId, query, adaptedDate, importDate, search, base } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
-        AdaptedQuery.findOrCreate({
-            where: { ProjectId, search }, defaults: {
+        AdaptedQuery.create({
                 id: uuid(),
                 query,
                 adaptedDate,
@@ -14,18 +13,9 @@ const createAdaptedQuery = async (req, res) => {
                 search,
                 ProjectId,
                 SearchEngineId: result.dataValues.id
-            }
-        })
-            .spread((researcher, created) => {
-                researcher.get({
-                    plain: true
-                });
-                if (created === true) {
-                    return res.status(201).send('adaptedQuery cadastrado com sucesso');
-                } else {
-                    return res.status(401).send('email ja cadastrado');
-                }
-            });
+        });
+        return res.status(201).send('adaptedQuery cadastrado com sucesso');
+                
     } catch (err) {
         return res.status(500).json({ message: 'error', err });
     }
