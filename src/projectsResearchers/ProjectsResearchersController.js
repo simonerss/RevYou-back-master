@@ -12,12 +12,12 @@ module.exports = {
     async createProjectsResearchers(req, res) {
         try {
             const { ProjectId, ResearcherId } = req.body;
-            // const projeto = await Project.findAll({ attributes: ['id'], where: { id: ProjectId } });
-            // const researcher = await Researcher.findAll({ attributes: ['id'], where: { id: ResearcherId } });
+            const projeto = await Project.findAll({ attributes: ['id'], where: { id: ProjectId } });
+            const researcher = await Researcher.findAll({ attributes: ['id'], where: { id: ResearcherId } });
 
-            // if (!projeto || !researcher) {
-            //     return res.status(400).json({ message: 'Algum dos parâmetros é inválido.', err });
-            // }
+            if (!projeto || !researcher) {
+                return res.status(400).json({ message: 'Algum dos parâmetros é inválido.', err });
+            }
 
             await ProjectsResearchers.create({
                 ProjectId: ProjectId,
