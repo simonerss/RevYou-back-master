@@ -46,7 +46,7 @@ const createAdaptedQuery_ = async (req, res) => {
                 SearchEngineId: result.dataValues.id,
                 AutomaticSearchId, 
                 StandardQueryId, 
-                searchField
+                // searchField
             }
         })
             .spread((researcher, created) => {
