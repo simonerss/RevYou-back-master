@@ -33,8 +33,7 @@ const createAdaptedQuery = async (req, res) => {
 
 const createAdaptedQueryy = async (req, res) => {
     try {
-        const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId } = req.body;
-        const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
+        const { ProjectId, query, adaptedDate, importDate, search, SearchEngineId, AutomaticSearchId, StandardQueryId } = req.body;
         const adaptedquery = AdaptedQuery.create({
             id: uuid(),
             query,
@@ -42,7 +41,9 @@ const createAdaptedQueryy = async (req, res) => {
             importDate,
             search,
             ProjectId,
-            SearchEngineId: result.dataValues.id
+            SearchEngineId: SearchEngineId,
+            AutomaticSearchId: AutomaticSearchId,
+            StandardQueryId: StandardQueryId
         })
         .then(() => res.status(201).send('adaptedQuery cadastrado com sucesso'));
 
