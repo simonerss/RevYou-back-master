@@ -15,17 +15,8 @@ const createAdaptedQuery = async (req, res) => {
                 ProjectId,
                 SearchEngineId: result.dataValues.id
             }
-        })
-            .spread((researcher, created) => {
-                researcher.get({
-                    plain: true
-                });
-                if (created === true) {
-                    return res.status(201).send('pesquisador cadastrado com sucesso');
-                } else {
-                    return res.status(401).send('email ja cadastrado');
-                }
-            });
+        });
+        return res.status(201).send('adaptedQuery cadastrada com sucesso');
     } catch (err) {
         return res.status(500).json({ message: 'error', err });
     }
