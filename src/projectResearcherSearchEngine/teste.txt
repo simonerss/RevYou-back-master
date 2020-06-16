@@ -1,2 +1,0 @@
-correção de erro no nome da pasta 'projectResearcherSearchEngine'
-mais uma tentativa, agora com o nome certo
