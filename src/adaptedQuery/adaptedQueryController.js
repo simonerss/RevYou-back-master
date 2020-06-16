@@ -128,7 +128,7 @@ const deleteAdaptedQuery = async (req, res) => {
 
 module.exports = {
     createAdaptedQuery,
-    createAdaptedQuery_,
+    createAdaptedQueryy,
     getAdaptedQuery,
     updateAdaptedQuery,
     deleteAdaptedQuery

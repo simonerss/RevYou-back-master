@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     adaptedDate: DataTypes.DATE,
     importDate: DataTypes.DATE,
     search: DataTypes.INTEGER,
-    searchField: DataTypes.ENUM('Title', 'Abstract', 'Keywords', 'Full Text')
+    // searchField: DataTypes.ENUM('Title', 'Abstract', 'Keywords', 'Full Text')
   }, {freezeTableName: true, schema: 'public'});
   
   AdaptedQuery.associate = function (models) {  
