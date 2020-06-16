@@ -31,6 +31,39 @@ const createAdaptedQuery = async (req, res) => {
     }
 }
 
+const createAdaptedQuery_ = async (req, res) => {
+    try {
+        const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId, searchField } = req.body;
+        const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
+        AdaptedQuery.findOrCreate({
+            where: { ProjectId, search }, defaults: {
+                id: uuid(),
+                query,
+                adaptedDate,
+                importDate,
+                search,
+                ProjectId,
+                SearchEngineId: result.dataValues.id,
+                AutomaticSearchId, 
+                StandardQueryId, 
+                searchField
+            }
+        })
+            .spread((researcher, created) => {
+                researcher.get({
+                    plain: true
+                });
+                if (created === true) {
+                    return res.status(201).send('pesquisador cadastrado com sucesso');
+                } else {
+                    return res.status(401).send('email ja cadastrado');
+                }
+            });
+    } catch (err) {
+        return res.status(500).json({ message: 'error', err });
+    }
+}
+
 /*
 const getAdaptedQuery = async (req, res) => {
     try {
@@ -96,6 +129,7 @@ const deleteAdaptedQuery = async (req, res) => {
 
 module.exports = {
     createAdaptedQuery,
+    createAdaptedQuery_,
     getAdaptedQuery,
     updateAdaptedQuery,
     deleteAdaptedQuery

@@ -6,6 +6,9 @@ const adaptedQueryRouter = () =>{
     router.route('/')
     .get(adaptedQueryController.getAdaptedQuery)
     .post(adaptedQueryController.createAdaptedQuery);
+
+    router.route('/new')
+    .post(adaptedQueryController.createAdaptedQuery_);
     
     router.route('/:id')
     .put(adaptedQueryController.updateAdaptedQuery)
