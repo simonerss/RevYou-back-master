@@ -5,7 +5,8 @@ const createAdaptedQuery = async (req, res) => {
     try {
         const { ProjectId, query, adaptedDate, importDate, search, base } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
-        AdaptedQuery.create({
+        AdaptedQuery.findOrCreate({
+            where: { ProjectId, search }, defaults: {
                 id: uuid(),
                 query,
                 adaptedDate,
@@ -13,9 +14,18 @@ const createAdaptedQuery = async (req, res) => {
                 search,
                 ProjectId,
                 SearchEngineId: result.dataValues.id
-        });
-        return res.status(201).send('adaptedQuery cadastrado com sucesso');
-                
+            }
+        })
+            .spread((researcher, created) => {
+                researcher.get({
+                    plain: true
+                });
+                if (created === true) {
+                    return res.status(201).send('adaptedQuery cadastrado com sucesso');
+                } else {
+                    return res.status(401).send('email ja cadastrado');
+                }
+            });
     } catch (err) {
         return res.status(500).json({ message: 'error', err });
     }
@@ -25,29 +35,16 @@ const createAdaptedQueryy = async (req, res) => {
     try {
         const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
-        AdaptedQuery.findOrCreate({
-            where: { ProjectId, search }, defaults: {
-                id: uuid(),
-                query,
-                adaptedDate,
-                importDate,
-                search,
-                ProjectId,
-                SearchEngineId: result.dataValues.id,
-                AutomaticSearchId, 
-                StandardQueryId, 
-            }
-        })
-            .spread((researcher, created) => {
-                researcher.get({
-                    plain: true
-                });
-                if (created === true) {
-                    return res.status(201).send('pesquisador cadastrado com sucesso');
-                } else {
-                    return res.status(401).send('email ja cadastrado');
-                }
-            });
+        AdaptedQuery.create({
+            id: uuid(),
+            query,
+            adaptedDate,
+            importDate,
+            search,
+            ProjectId,
+            SearchEngineId: result.dataValues.id
+    });
+    return res.status(201).send('adaptedQuery cadastrado com sucesso');
     } catch (err) {
         return res.status(500).json({ message: 'error', err });
     }
