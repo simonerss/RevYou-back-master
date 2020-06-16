@@ -33,7 +33,7 @@ const createAdaptedQuery = async (req, res) => {
 
 const createAdaptedQuery_ = async (req, res) => {
     try {
-        const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId, searchField } = req.body;
+        const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
         AdaptedQuery.findOrCreate({
             where: { ProjectId, search }, defaults: {
@@ -46,7 +46,6 @@ const createAdaptedQuery_ = async (req, res) => {
                 SearchEngineId: result.dataValues.id,
                 AutomaticSearchId, 
                 StandardQueryId, 
-                // searchField
             }
         })
             .spread((researcher, created) => {
