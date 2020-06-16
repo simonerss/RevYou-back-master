@@ -4,6 +4,11 @@ const { NOW, sequelize } = require('sequelize');
 
 module.exports = {
 
+    async getProjectsResearchers(req, res) {
+        const projectsResearchers = await ProjectsResearchers.findAll();
+        return res.json({ projectsResearchers });
+    },
+
     async createProjectsResearchers(req, res) {
         try {
             const { ProjectId, ResearcherId } = req.body;
