@@ -31,7 +31,10 @@ const createResearcher = (req, res) => {
 const getResearcher = async (req, res) => {
     try {
         const { email } = req.params;
-        const researcher = await Researcher.findOne({ where: { email: email } });
+        const researcher = await Researcher.findOne({ 
+            where: { email: email },
+            attributes: ['id', 'name', 'email', 'createdAt', 'updatedAt']
+        });
 
         if (researcher) {
             return res.status(202).json(researcher);
