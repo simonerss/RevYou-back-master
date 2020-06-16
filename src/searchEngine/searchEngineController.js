@@ -44,9 +44,9 @@ const createSearchEngine = async (req, res) => {
 const createProjectsSearchEngines = async (req, res) => {
     try {
         const { bases, ProjectId } = req.body
-        const project = await Project.findByPk(ProjectId);
+        const project = await Project.findByPk(ProjectId, { atributes: ["id"] });
         const result = bases.map(async base => {
-            const searchEngine = await SearchEngine.findOne({ where: { name: base } });
+            const searchEngine = await SearchEngine.findOne({ where: { name: base }});
             return await project.addSearchEngines(searchEngine);
         })
         await Promise.all(result)
