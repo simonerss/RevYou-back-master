@@ -5,6 +5,7 @@ const pg = require('pg');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 
+const projectsLanguagesRouter = require('./src/projectsLanguages/ProjectsLanguagesRouter');
 const projectsResearchersRouter = require('./src/projectsResearchers/ProjectsResearchersRouter');
 const dataGraphicRouter = require('./src/dataGraphic/dataGraphicRouter');
 const projectResearcherSearchEngineRouter = require('./src/projectResearcherSearchEngine/ProjectResearcherSearchEngineRouter');
@@ -38,8 +39,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
 app.options("/*", function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -49,6 +48,7 @@ app.options("/*", function (req, res, next) {
 });
 
 //routers
+app.use("/projectsLanguages", projectsLanguagesRouter());
 app.use("/projectsResearchers", projectsResearchersRouter());
 app.use("/studyAssigned", studyAssignedRouter());
 app.use("/form", formRouter());
