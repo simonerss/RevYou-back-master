@@ -31,7 +31,7 @@ const createAdaptedQuery = async (req, res) => {
     }
 }
 
-const createAdaptedQuery_ = async (req, res) => {
+const createAdaptedQueryy = async (req, res) => {
     try {
         const { ProjectId, query, adaptedDate, importDate, search, base, AutomaticSearchId, StandardQueryId } = req.body;
         const result = await SearchEngine.findOne({ where: { name: base }, attributes: ['id'] });
