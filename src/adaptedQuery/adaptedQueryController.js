@@ -93,7 +93,6 @@ const getAdaptedQuery = async (req, res) => {
     }
 }
 
-
 const updateAdaptedQuery = async (req, res) => {
     try {
         const { id } = req.params;
